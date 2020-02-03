@@ -1,0 +1,174 @@
+<!--
+    Yes/No Wheel is generated in large part thanks to the work of Douglar McKechie's 'winwheel' project.   The following applies specifically and solely to the winwheel object and associated functions used on this site.
+
+    Winhweel.js one image per segment wheel example by Douglas McKechie @ www.dougtesting.net
+    See website for tutorials and other documentation.
+
+    The MIT License (MIT)
+
+    Copyright (c) 2016 Douglas McKechie
+
+    Permission is hereby granted, free of charge, to any person obtaining a copy
+    of this software and associated documentation files (the "Software"), to deal
+    in the Software without restriction, including without limitation the rights
+    to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+    copies of the Software, and to permit persons to whom the Software is
+    furnished to do so, subject to the following conditions:
+
+    The above copyright notice and this permission notice shall be included in all
+    copies or substantial portions of the Software.
+
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+    SOFTWARE.
+-->
+<html>
+    <head>
+        <title>Yes-Or-No Wheel</title>
+        <link rel="icon" href="wheel.ico" type="image/gif" sizes="16x16">
+        <script
+        src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" type="text/css" href="Styling/sample.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+        <link rel="stylesheet" href="main.css" type="text/css" />
+
+
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/gsap/latest/TweenMax.min.js"></script>
+        <script src="src/ctrl/initialize.js"></script>
+        <script type="text/javascript" src="src/view/Winwheel.js"></script>
+        <script src="src/model/sheetStats.js"></script>
+
+        <script src="src/view/sheetLogic.js"></script>
+
+    </head>
+    <body>
+        <div align="center">
+
+            <table cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                    <td>
+
+                    </td>
+
+                    <td width="421" height="564" class="the_wheel" align="center" valign="center">
+                        <canvas id="canvas" width="420" height="420">
+                            <p style="{color: white}" align="center">Sorry, your browser doesn't support canvas. Please try another.</p>
+                        </canvas>
+                    </td>
+                </tr>
+                <tr>
+                  <td>
+
+                  </td>
+                  <td align="center" valign="center" style="background-color:pink;">
+                      <div id="resultBoard" style="border:2px solid silver; background-color:black; color:white; font-size:2rem;">
+                        Click the wheel to answer your yes/no question!
+                        </div>
+                  </td>
+                  </tr>
+            </table>
+        </div>
+
+
+          </div>
+
+
+
+        <script>
+
+              //Create new wheel object specifying the parameters at creation time.
+            var theWheel = new Winwheel({
+                'numSegments'       : 8,                 // Specify number of segments.
+                'outerRadius'       : 200,               // Set outer radius so wheel fits inside the background.
+                'drawText'          : true,              // Code drawn text can be used with segment images.
+                'textFontSize'      : 16,
+                'textOrientation'   : 'curved',
+                'textAlignment'     : 'inner',
+                'textMargin'        : 90,
+                'textFontFamily'    : 'monospace',
+                'textStrokeStyle'   : 'black',
+                'textLineWidth'     : 3,
+                'textFillStyle'     : 'white',
+                'drawMode'          : 'segmentImage',    // Must be segmentImage to draw wheel using one image per segemnt.
+                'segments'          :                    // Define segments including image and text.
+                [
+                   {'image' : 'Yslice_crimson.png',  'result':"Yes", 'text' : ''},
+                   {'image' : 'Nslice_purple.png',   'result':"No",'text' : ''},
+                   {'image' : 'Yslice_cyan.png',  'result':"Yes",'text' : ''},
+                   {'image' : 'Nslice_crimson.png',  'result':"No",'text' : ''},
+                   {'image' : 'Yslice_green.png', 'result':"Yes",'text' : ''},
+                   {'image' : 'Nslice_cyan.png', 'result':"No",'text' : ''},
+                   {'image' : 'Yslice_purple.png',  'result':"Yes",'text' : ''},
+                   {'image' : 'Nslice_myGreen.png', 'result':"No",'text' : ''}
+                ],
+                'animation' :           // Specify the animation to use.
+                {
+                    'type'     : 'spinToStop',
+                    'duration' : 5,     // Duration in seconds.
+                    'spins'    : 8,     // Number of complete spins.
+                    'callbackSound'    : playSound,   // Function to call when the tick sound is to be triggered.
+                    'soundTrigger'     : 'segment',        // Specify pins are to trigger the sound, the other option is 'segment'.
+                    'callbackFinished' : alertPrize
+                }
+            });
+
+            // Vars used by the code in this page to do power controls.
+            var wheelPower    = 0;
+            var wheelSpinning = false;
+            let audio = new Audio('tick.mp3');  // Create audio object and load desired file.
+
+            window.addEventListener( "load", sheetProj.view.sheetLogic.setupUserInterface);
+    
+
+
+
+            function playSound()
+            {
+              // Stop and rewind the sound (stops it if already playing).
+              audio.pause();
+              audio.currentTime = 0;
+
+              // Play the sound.
+              audio.play();
+            }
+
+            // -------------------------------------------------------
+            // Function for reset button.
+            // -------------------------------------------------------
+            function resetWheel()
+            {
+                theWheel.stopAnimation(false);  // Stop the animation, false as param so does not call callback function.
+                theWheel.rotationAngle = 0;     // Re-set the wheel angle to 0 degrees.
+                theWheel.draw();                // Call draw to render changes to the wheel.
+
+                document.getElementById('pw1').className = "";  // Remove all colours from the power level indicators.
+                document.getElementById('pw2').className = "";
+                document.getElementById('pw3').className = "";
+
+                wheelSpinning = false;          // Reset to false to power buttons and spin can be clicked again.
+            }
+
+            // -------------------------------------------------------
+            // Called when the spin animation has finished by the callback feature of the wheel because I specified callback in the parameters.
+            // note the indicated segment is passed in as a parmeter as 99% of the time you will want to know this to inform the user of their prize.
+            // -------------------------------------------------------
+            function alertPrize(indicatedSegment)
+            {
+                // Do basic alert of the segment text. You would probably want to do something more interesting with this information.
+                $("#resultBoard").html(`The wheel says <b>${indicatedSegment.result}!</b>`);
+                //$( "div" ).html( "<b>Wow!</b> Such excitement..." );
+                wheelSpinning=false;
+
+            }
+        </script>
+    </body>
+</html>
