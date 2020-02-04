@@ -71,7 +71,7 @@
                   </td>
                   <td align="center" valign="center" style="background-color:pink;">
                       <div id="resultBoard" style="border:2px solid silver; background-color:black; color:white; font-size:2rem;">
-                        Click the wheel to answer your yes/no question!
+                        Click the wheel to answer Yes or No!
                         </div>
                   </td>
                   </tr>
@@ -101,14 +101,14 @@
                 'drawMode'          : 'segmentImage',    // Must be segmentImage to draw wheel using one image per segemnt.
                 'segments'          :                    // Define segments including image and text.
                 [
-                   {'image' : 'Yslice_crimson.png',  'result':"Yes", 'text' : ''},
-                   {'image' : 'Nslice_purple.png',   'result':"No",'text' : ''},
-                   {'image' : 'Yslice_cyan.png',  'result':"Yes",'text' : ''},
-                   {'image' : 'Nslice_crimson.png',  'result':"No",'text' : ''},
-                   {'image' : 'Yslice_green.png', 'result':"Yes",'text' : ''},
-                   {'image' : 'Nslice_cyan.png', 'result':"No",'text' : ''},
-                   {'image' : 'Yslice_purple.png',  'result':"Yes",'text' : ''},
-                   {'image' : 'Nslice_myGreen.png', 'result':"No",'text' : ''}
+                   {'image' : 'Yesslice_violet.png',  'result':"Yes", 'text' : ''},
+                   {'image' : 'Noslice_blue.png',   'result':"No",'text' : ''},
+                   {'image' : 'Yesslice_cyan.png',  'result':"Yes",'text' : ''},
+                   {'image' : 'Noslice_green.png',  'result':"No",'text' : ''},
+                   {'image' : 'Yesslice_yellow.png', 'result':"Yes",'text' : ''},
+                   {'image' : 'Noslice_orange.png', 'result':"No",'text' : ''},
+                   {'image' : 'Yesslice_mypick.png',  'result':"Yes",'text' : ''},
+                   {'image' : 'Noslice_red.png', 'result':"No",'text' : ''}
                 ],
                 'animation' :           // Specify the animation to use.
                 {
@@ -127,7 +127,7 @@
             let audio = new Audio('tick.mp3');  // Create audio object and load desired file.
 
             window.addEventListener( "load", sheetProj.view.sheetLogic.setupUserInterface);
-    
+
 
 
 
